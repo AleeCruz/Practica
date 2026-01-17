@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+
+:root{
+  --blue-black: #010d1a;     
+  --azuldark:#02162b;
+  --neon: #00d9ff;    
+  --glow:  rgba(0, 217, 255, 0.4);;
+  --light: #e6faff;
+}
+
+/*Se dara estilos al cuerpo de la pagina web*/
+body{
+    margin: 0;
+    padding: 0;
+
+    background-color: var(--blue-black);
+    font-family: sans-serif;
+}
+
+
+
+
+
+/*Se le esta dando estilos solamente a la imagen
+ y al texto*/
+
+.logo-container{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img{
+    border-radius: 50%;
+    height: 45px;
+    width: auto;
+    filter: drop-shadow(0 0 8px var(--blue-black));
+}
+
+.logo-img:hover{
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 15px var(--glow));
+}
+
+.logo-text{
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon);
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
+
+/*Ahora vamos a dar estilos a la barra de navegacion*/
+
+header{
+    width: 100%;
+    background-color: var(--blue-black);
+    border-bottom: 0.3px ridge var(--neon);
+    position: sticky;
+    top: 0;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+}
+
+
+
+header nav ul{
+    font-family: 'Orbitron', sans-serif;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+header nav ul li{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+header nav ul li a {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+header nav ul li a:hover{
+    color: var(--neon);
+    text-shadow: 0 0 8px var(--glow);
+}
+
+
+
+
+
+
+
+/*Estilos para el main, foooter, h1 y p*/
+main,footer{
+    margin: 20px;
+    padding: 20px; 
+    border: 5px solid var(--glow);
+    background-color:var(--azuldark);
+}
+
+h1,p{
+    color: var(--light);
+    line-height: 1.9;
+    text-align: center;
+}
