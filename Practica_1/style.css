@@ -2,8 +2,8 @@
 
 
 :root{
-  --blue-black: #010d1a;     
-  --azuldark:#02162b;
+  --blue-black: rgba(1, 13, 26, 0.9);     
+  --azuldark:rgba(2, 22, 43, 0.4);;
   --neon: #00d9ff;    
   --glow:  rgba(0, 217, 255, 0.4);;
   --light: #e6faff;
@@ -13,13 +13,20 @@
 body{
     margin: 0;
     padding: 0;
-
-    background-color: var(--blue-black);
+    background-color: #010d1a;;
     font-family: sans-serif;
+    overflow-x: hidden;
 }
 
 
-
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Envía la animación al fondo */
+}
 
 
 /*Se le esta dando estilos solamente a la imagen
@@ -62,6 +69,7 @@ header{
     border-bottom: 0.3px ridge var(--neon);
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 .navbar{
