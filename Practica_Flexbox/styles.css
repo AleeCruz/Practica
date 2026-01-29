@@ -3,6 +3,12 @@
     box-sizing: border-box;
 }
 
+
+
+body{
+    margin:0;
+    padding: 0;
+}
 .container{
     background-color: #333;
     height: 30vh;
@@ -13,7 +19,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    flex-flow: column wrap;/*Es un shorcut de flexdirection y de flec wrap*/
+    flex-flow: row nowrap;/*Es un shorcut de flexdirection y de flec wrap*/
 
     /*Vamos a ver las propiedadesd que tienen justify-content*/
 
@@ -49,20 +55,74 @@
 
     /*Vamos a resetear los todos los elementos */
 
-    flex-flow: row nowrap;
+    flex-flow: row  nowrap;
     justify-content: flex-start;
 
-    /*Ahora podemos comenzar a experimentar sobre  align-items y align-contents*/
 
-    align-items: stretch;/*Recordar que el estiramiento esta sucediendo hasta el contenedor del 
-    padre en el cross axis o sea el eje x 
-    Esta propiedad permite alargar los items que contiene el contenedor */
+    /*Vamos a ver primero align-items los valores por defecto que son: 
+    stretcht/ flex-start/flex-end/center/baseline*/
+
+    /*Lo que hace esta propiedad es alargar por defecto de manera vertical si se esta 
+    trabajando sobre el eje principal*/
+    align-items: stretch;
+
+    /*Esto lo que hace es poner todos los elementos en el comienxo de del eje respecto de y*/
+    align-items: flex-start;
 
 
-/*Y si lo cambiamos por colmnas?*/
-    flex-direction: column;/*Sucede lo mismo pero en esta ocacion sobre el eje de las y
-    */
+    /*Esto lo que hace es poner todos los elementos al final del eje y de la siguiente mannera*/
 
+    align-items: flex-end;
+
+    /*Esta propiedad lo que hace es que centrea todos los elementos respeto de y*/
+    
+    align-items: center;
+
+
+
+    /*Y ahora que sucede con baseline?? */
+
+    /*Lo que hace baseline es que el contenido(texto) realiza un alineamiento en tre cada una de las 
+    cajas sin importar que alguna de esas cajas tenga un tamaño distinto*/
+
+
+    align-items: baseline;
+
+
+    /*Lo ejemplificaremos de la siguiente manera alterando alguno de ls texto de las cajas
+    principales */
+
+    /*Resumiendo align-items me permite alinear los elementos hijos de un contenedor padre 
+    a partir del cross axis*/
+
+
+
+
+
+    /*Vamos a jugar un poco con los parametros pero esta vez con main axis */
+
+
+
+
+    align-items: stretch;
+
+    align-items: flex-start;
+    align-items: flex-end;
+    align-items: center;
+
+    align-items: baseline;
+    align-items: center;
+    
+
+
+    /*Ahora vemos sobre align contents
+    Define la alineacion de los hijos en el eje transversal (cross axis) NO
+    funcionan cuando los hijos estan en una sola linea 
+    los valores que puede soportar son: 
+    flex-start | flex-end | center | space-betwen | space-around | space-evenly  | stretch;*/
+
+
+    align-content: flex-start;
 
 
 
@@ -73,7 +133,17 @@
 
 .item{
     border: medium solid #999;
+
+    /*Si le quitamos estas lineas de codigo entonces el metodo stretch funcionara correctamente*/
     /*width: 20%;
     height: 20%;*/
     background-color: #666;
 }
+
+/*
+.item:nth-child(2),
+.item:nth-child(17){
+    font-size: 250%;
+}
+
+*/

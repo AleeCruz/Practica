@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+:root {
+    --blue-black: rgba(1, 13, 26, 0.9);
+    --azuldark: rgba(2, 22, 43, 0.4);
+    --neon: #00d9ff;
+    --glow: rgba(0, 217, 255, 0.4);
+    --light: #e6faff;
+
+    /* variables del slider */
+    --slide-width: 200px;
+    --slide-count: 12;   /* total de slides (incluidos los duplicados) */
+    --visible-shift: 6;  /* cantidad de slides reales */
+}
+
+
+
+
+
+/* =========================
+   CARRUSEL INFINITO
+========================= */
+
+.slider {
+    width: 100%;
+    overflow: hidden;
+    padding: 60px 0;
+    background: rgba(1, 13, 26, 0.4);
+    position: relative;
+}
+
+/* difuminado suave en los bordes */
+.slider::before,
+.slider::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.slider::before {
+    left: 0;
+    background: linear-gradient(to right, #010d1a, transparent);
+}
+
+.slider::after {
+    right: 0;
+    background: linear-gradient(to left, #010d1a, transparent);
+}
+
+.slide-track {
+    display: flex;
+    width: calc(var(--slide-width) * var(--slide-count));
+    animation: scroll-infinito 25s linear infinite;
+}
+
+.slide {
+    width: var(--slide-width);
+    flex: 0 0 var(--slide-width); /* evita que se achique */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide img {
+    height: 80px;
+    width: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+/* hover del logo */
+.slide img:hover {
+    transform: scale(1.15) rotate(3deg);
+    filter: drop-shadow(0 0 20px var(--neon));
+}
+
+/* animación infinita */
+@keyframes scroll-infinito {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-1 * var(--slide-width) * var(--visible-shift)));
+    }
+}
+
+/* pausa al pasar el mouse */
+.slider:hover .slide-track {
+    animation-play-state: paused;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* tablets */
+@media (max-width: 900px) {
+    :root {
+        --slide-width: 160px;
+    }
+
+    .slide img {
+        height: 65px;
+    }
+}
+
+/* móviles */
+@media (max-width: 600px) {
+    :root {
+        --slide-width: 130px;
+    }
+
+    .slider {
+        padding: 40px 0;
+    }
+
+    .slide img {
+        height: 50px;
+    }
+
+    .slide-track {
+        animation-duration: 18s; /* un poco más rápido en pantallas chicas */
+    }
+}
+
+
+
+/* =========================
+   Carrusel con flechas
+========================= */
+.course-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 40px auto;
+    overflow: hidden; /* Esto corta lo que sobra */
+    background: #0b1c2a;
+    border-radius: 16px;
+}
+/* contenedor horizontal de los slides */
+.carousel-track {
+    display: flex;
+    /* Eliminamos el width: 100% que tenías antes */
+    width: 100%; 
+    transition: transform 0.5s ease-in-out;
+}
+
+/* cada slide ocupa exactamente el ancho del carrusel */
+.course-slide {
+    /* ESTO ES LO MÁS IMPORTANTE: */
+    flex: 0 0 100%; /* No se encoge, no crece, siempre ocupa el 100% */
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding: 40px;
+    box-sizing: border-box; /* Para que el padding no rompa el tamaño */
+}
+
+/* texto */
+.course-text {
+    max-width: 50%;
+    color: #e6faff;
+}
+
+.course-text .tag {
+    background: #2ecc71;
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.course-text h2 {
+    margin: 15px 0 10px;
+    font-size: 28px;
+    color: #00d9ff;
+}
+
+.course-text .date {
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+
+.course-text .more {
+    color: #00d9ff;
+    text-decoration: none;
+}
+
+/* imagen */
+.course-image {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.course-image img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* botones flecha */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 217, 255, 0.15);
+    border: none;
+    color: #00d9ff;
+    font-size: 30px;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.arrow.left {
+    left: 10px;
+}
+
+.arrow.right {
+    right: 10px;
+}
+
+.arrow:hover {
+    background: rgba(0, 217, 255, 0.35);
+}
+@media (max-width: 768px) {
+    .course-slide {
+        flex-direction: column-reverse; /* Imagen arriba, texto abajo */
+        text-align: center;
+        padding: 60px 20px; /* Más espacio para las flechas */
+    }
+
+    .course-text, .course-image {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+/* ===============================
+    ESTILOS DE SECTION IMAGE
+   =============================== */
+
+.about-gamma {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 80px 10%;
+    background: #0a0f1c;
+    color: #e6faff;
+    flex-wrap: wrap;
+}
+
+/* contenedor de imagen */
+.about-media {
+    position: relative;
+    width: 420px;
+    height: 420px;
+}
+
+/* imagen principal */
+.about-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+/* forma de fondo tipo blob neon */
+.blob {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #6a00ff, #00d9ff);
+    border-radius: 60% 40% 55% 45% / 45% 60% 40% 55%;
+    transform: scale(1.15);
+    z-index: 1;
+    filter: blur(2px);
+}
+
+/* texto */
+.about-text {
+    max-width: 500px;
+}
+
+.subtitle {
+    color: #00d9ff;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.about-text h2 {
+    font-size: 40px;
+    margin: 10px 0 20px;
+}
+
+.about-text h2 span {
+    color: #00d9ff;
+}
+
+.about-text p {
+    line-height: 1.6;
+    opacity: .9;
+}
+
+/* botón */
+.btn-more {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: #00d9ff;
+    color: #001018;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 0 15px rgba(0,217,255,0.6);
+    transition: .2s;
+}
+
+.btn-more:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(0,217,255,1);
+}
+
+/* responsive */
+@media (max-width: 768px) {
+    .about-gamma {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-media {
+        width: 300px;
+        height: 300px;
+    }
+}

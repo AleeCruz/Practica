@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Bienvenidos a Gamma Stream</h1>
+
+
+    <main>
+
+
+
+
+
+
+
+
+
+        <div class="course-carousel">
+
+            <button class="arrow left" onclick="prevSlide()">❮</button>
+
+            <div class="carousel-track" id="carouselTrack">
+                
+                <!-- Slide 1 -->
+                <div class="course-slide">
+                    <div class="course-text">
+                        <span class="tag">Próximo curso</span>
+                        <h2>Notion desde cero con IA</h2>
+                        <p class="date">Disponible desde el 14 de noviembre</p>
+                        <p>
+                        Aprende a organizar tu información con páginas, bases de datos y
+                        vistas personalizadas en Notion.
+                        </p>
+                        <a href="#" class="more">Más detalles</a>
+                    </div>
+
+                    <div class="course-image">
+                        <img src="https://picsum.photos/seed/notion/600/400" alt="Curso Notion">
+
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="course-slide">
+                    <div class="course-text">
+                        <span class="tag">Nuevo</span>
+                        <h2>Programación Web Full Stack</h2>
+                        <p class="date">Comienza en diciembre</p>
+                        <p>
+                        Domina HTML, CSS, JavaScript, Node y React creando proyectos reales.
+                        </p>
+                        <a href="#" class="more">Más detalles</a>
+                    </div>
+
+                    <div class="course-image">
+                        <img src="https://picsum.photos/seed/webdev/600/400" alt="Curso Web">
+
+                    </div>
+                </div>
+
+                <!--Slide 3-->
+                  <div class="course-slide">
+                        <div class="course-text">
+                            <span class="tag">Nuevo</span>
+                            <h2>Programación Web Back End</h2>
+                            <p class="date">Comienza en Enero</p>
+                            <p>
+                            Domina Python, Java, SpringBoot, Node y React creando proyectos reales.
+                            </p>
+                            <a href="#" class="more">Más detalles</a>
+                        </div>
+
+                        <div class="course-image">
+                            <img src="https://picsum.photos/seed/notion/600/400" alt="Curso Back">
+
+                        </div>
+                    </div>
+
+                                    <!--Slide 4-->
+                  <div class="course-slide">
+                        <div class="course-text">
+                            <span class="tag">Proximo</span>
+                            <h2>Programación en Java</h2>
+                            <p class="date">Comienza en FEbrero</p>
+                            <p>
+                            Domina Python, Java, SpringBoot, Node y React creando proyectos reales.
+                            </p>
+                            <a href="#" class="more">Más detalles</a>
+                        </div>
+
+                        <div class="course-image">
+                            <img src="https://picsum.photos/seed/notion/600/400" alt="Curso Back">
+
+                        </div>
+                    </div>
+
+                               <!--Slide 5-->
+                  <div class="course-slide">
+                        <div class="course-text">
+                            <span class="tag">Siguiente</span>
+                            <h2>Programación en React</h2>
+                            <p class="date">Comienza en FEbrero</p>
+                            <p>
+                            Domina Python, Java, SpringBoot, Node y React creando proyectos reales.
+                            </p>
+                            <a href="#" class="more">Más detalles</a>
+                        </div>
+
+                        <div class="course-image">
+                            <img src="https://picsum.photos/seed/notion/600/400" alt="Curso Back">
+
+                        </div>
+                    </div>
+
+            </div>
+
+            <button class="arrow right" onclick="nextSlide()">❯</button>
+        </div>
+
+
+
+
+
+
+
+        
+        <!--Ahora veremos otro apartado del section-image-->
+
+        <section class="about-gamma">
+            
+            <div class="about-media">
+                <div class="blob"></div>
+                <img src="https://aleecruz.github.io/Gamma_Stream_V1.1/assets/Logo-BVySgBYU.png" alt="Aprendizaje online" class="about-img">
+
+
+
+            </div>
+
+            <div class="about-text">
+                <span class="subtitle">Sobre Gamma Stream</span>
+                <h2>La educación tech lo cambia <span>todo</span></h2>
+                <p>
+                    En Gamma Stream ofrecemos apoyo académico y cursos de tecnología
+                    enfocados en la práctica real. Aprendé programación, herramientas
+                    digitales e inteligencia artificial con clases claras, dinámicas
+                    y orientadas a proyectos.
+                </p>
+                <a href="#" class="btn-more">Ver cursos</a>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+        <!--Ahora vamos a ver un carrusel infinito que se detendra cuando pongamos el puntero-->
+
+        <div class="slider">
+            <div class="slide-track">
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="NodeJS"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"></div>
+
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="NodeJS"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5"></div>
+                <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"></div>
+            </div>
+        </div>
+
+    </main>
+
+
+
+
+
+
+
+
+
+    <script>
+        let index = 0;
+
+        function updateCarousel() {
+        const track = document.getElementById("carouselTrack");
+        track.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function nextSlide() {
+        const slides = document.querySelectorAll(".course-slide").length;
+        index = (index + 1) % slides;
+        updateCarousel();
+        }
+
+        function prevSlide() {
+        const slides = document.querySelectorAll(".course-slide").length;
+        index = (index - 1 + slides) % slides;
+        updateCarousel();
+        }
+        </script>
+
+</body>
+</html>
