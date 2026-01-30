@@ -18,11 +18,24 @@
     --visible-shift: 6;  
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Orbitron', sans-serif;
     background-color: var(--azul-dark);
     color: var(--light);
+    line-height: 1.6;
+}
+
+h1 {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--neon);
+    text-transform: uppercase;
+    letter-spacing: 3px;
 }
 
 /* ==========================================================================
@@ -37,7 +50,6 @@ body {
     background: var(--azul-card);
     border-radius: 20px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    /* Quitamos el height fijo para que respire en móvil */
     min-height: 450px; 
 }
 
@@ -52,12 +64,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 60px 80px; /* Espacio generoso */
-    box-sizing: border-box;
+    padding: 60px 80px;
 }
-/* Contenido de Texto */
+
 .course-text {
-    max-width: 50%;
+    width: 50%;
+    text-align: left;
 }
 
 .course-text .tag {
@@ -68,12 +80,6 @@ body {
     font-size: 12px;
     font-weight: bold;
     display: inline-block;
-}
-
-/* Texto legible */
-.course-text {
-    width: 50%;
-    text-align: left;
 }
 
 .course-text h2 {
@@ -90,7 +96,6 @@ body {
 
 .course-text p {
     font-size: 18px;
-    line-height: 1.6;
     margin-bottom: 25px;
 }
 
@@ -102,17 +107,13 @@ body {
     transition: 0.3s;
 }
 
-.course-text .more:hover {
-    border-bottom: 1px solid var(--neon);
-}
+.course-text .more:hover { border-bottom: 1px solid var(--neon); }
 
-/* Contenido de Imagen */
 .course-image {
     width: 45%;
     display: flex;
     justify-content: center;
 }
-
 
 .course-image img {
     width: 100%;
@@ -120,9 +121,9 @@ body {
     height: 300px;
     object-fit: cover;
     border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
 
-/* Botones de Navegación */
 .arrow {
     position: absolute;
     top: 50%;
@@ -143,7 +144,7 @@ body {
 .arrow.right { right: 20px; }
 
 /* ==========================================================================
-   3. SECCIÓN "SOBRE GAMMA" (ABOUT)
+   3. SECCIÓN SOBRE GAMMA (ABOUT)
    ========================================================================== */
 .about-gamma {
     display: flex;
@@ -179,22 +180,16 @@ body {
     filter: blur(2px);
 }
 
-.about-text {
-    max-width: 500px;
-}
-
 .subtitle {
     color: var(--neon);
     font-weight: bold;
     letter-spacing: 2px;
     display: block;
+    margin-bottom: 10px;
 }
 
-.about-text h2 {
-    font-size: 40px;
-    margin: 10px 0;
-}
-
+.about-text { max-width: 500px; }
+.about-text h2 { font-size: 40px; margin: 10px 0; }
 .about-text h2 span { color: var(--neon); }
 
 .btn-more {
@@ -210,13 +205,8 @@ body {
     transition: 0.3s;
 }
 
-.btn-more:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 25px var(--neon);
-}
-
 /* ==========================================================================
-   4. SLIDER INFINITO (LOGOS TECNOLOGÍAS)
+   4. SLIDER INFINITO
    ========================================================================== */
 .slider {
     width: 100%;
@@ -225,19 +215,6 @@ body {
     background: rgba(1, 13, 26, 0.4);
     position: relative;
 }
-
-.slider::before, .slider::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 100px;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.slider::before { left: 0; background: linear-gradient(to right, var(--azul-dark), transparent); }
-.slider::after { right: 0; background: linear-gradient(to left, var(--azul-dark), transparent); }
 
 .slide-track {
     display: flex;
@@ -258,162 +235,16 @@ body {
     transition: 0.3s;
 }
 
-.slide img:hover {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 15px var(--neon));
-}
-
 @keyframes scroll-infinito {
     from { transform: translateX(0); }
     to { transform: translateX(calc(-1 * var(--slide-width) * var(--visible-shift))); }
 }
 
-.slider:hover .slide-track { animation-play-state: paused; }
-
 /* ==========================================================================
-   5. RESPONSIVE DESIGN (MÓVIL Y TABLET)
-   ========================================================================== */
-@media (max-width: 992px) {
-    /* Carrusel de Cursos */
-    .course-carousel { height: auto; min-height: 550px; }
-    .course-slide { 
-        flex-direction: column-reverse; 
-        padding: 40px 20px; 
-        justify-content: center; 
-        text-align: center;
-        gap: 30px;
-    }
-    .course-text, .course-image { max-width: 100%; width: 100%; }
-    .course-text h2 { font-size: 28px; }
-    .course-image img { height: 250px; max-width: 100%; }
-    
-    .arrow { top: auto; bottom: 15px; transform: none; }
-    .arrow.left { left: 30%; }
-    .arrow.right { right: 30%; }
-
-    /* Sección About */
-    .about-gamma { text-align: center; }
-    .about-media { width: 300px; height: 300px; }
-}
-
-@media (max-width: 600px) {
-    :root { --slide-width: 130px; }
-    .slide img { height: 50px; }
-}
-
-/* ==========================================================================
-   CARRUSEL DE CURSOS (RE-ESTRUCTURADO)
-   ========================================================================== */
-.course-carousel {
-    position: relative;
-    width: 95%;
-    max-width: 1200px;
-    margin: 40px auto;
-    overflow: hidden;
-    background: var(--azul-card);
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    /* Quitamos el height fijo para que respire en móvil */
-    min-height: 450px; 
-}
-
-.carousel-track {
-    display: flex;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.course-slide {
-    flex: 0 0 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 60px 80px; /* Espacio generoso */
-    box-sizing: border-box;
-}
-
-/* Imagen adaptable */
-.course-image {
-    width: 45%;
-    display: flex;
-    justify-content: center;
-}
-
-.course-image img {
-    width: 100%;
-    max-width: 450px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 15px;
-}
-
-/* Texto legible */
-.course-text {
-    width: 50%;
-    text-align: left;
-}
-
-.course-text h2 {
-    font-size: 32px;
-    color: var(--neon);
-    margin: 15px 0;
-}
-
-/* ==========================================================================
-   RESPONSIVE (¡Aquí es donde se arregla lo feo!)
-   ========================================================================== */
-@media (max-width: 900px) {
-    .course-slide {
-        flex-direction: column-reverse; /* Imagen arriba, texto abajo */
-        padding: 40px 20px 80px 20px; /* Más padding abajo para las flechas */
-        text-align: center;
-    }
-
-    .course-text, .course-image {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .course-text h2 {
-        font-size: 24px;
-    }
-
-    .course-image img {
-        height: 200px; /* Imagen más pequeña en móvil */
-        margin-bottom: 20px;
-    }
-
-    /* Arreglamos las flechas en móvil para que no tapen el texto */
-    .arrow {
-        top: auto;
-        bottom: 15px; /* Las bajamos al final del card */
-        transform: none;
-    }
-
-    .arrow.left {
-        left: 30%; /* Centradas un poco más */
-    }
-
-    .arrow.right {
-        right: 30%;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-/* ==========================================================================
-   6. FORMULARIO DE CONTACTO
+   5. FORMULARIOS (CONTACTO Y CALENDARIO)
    ========================================================================== */
 .contact-section {
     padding: 80px 10%;
-    background: var(--azul-dark);
 }
 
 .contact-container {
@@ -424,9 +255,7 @@ body {
     align-items: center;
 }
 
-.contact-info {
-    flex: 1;
-}
+.contact-info { flex: 1; }
 
 .contact-form {
     flex: 1;
@@ -437,105 +266,33 @@ body {
     border: 1px solid rgba(0, 217, 255, 0.1);
 }
 
-.form-group {
-    margin-bottom: 20px;
-}
+.form-group { margin-bottom: 20px; }
 
-.form-group input, 
-.form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    background: rgba(1, 13, 26, 0.8);
-    border: 1px solid rgba(0, 217, 255, 0.2);
-    border-radius: 8px;
-    color: var(--light);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: 0.3s;
-}
-
-.form-group input:focus, 
-.form-group textarea:focus {
-    border-color: var(--neon);
-    box-shadow: 0 0 10px var(--glow);
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 14px;
-    background: var(--neon);
-    color: #001018;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-family: 'Orbitron', sans-serif;
-    cursor: pointer;
-    box-shadow: 0 0 15px var(--glow);
-    transition: 0.3s;
-}
-
-.btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 25px var(--neon);
-}
-
-/* RESPONSIVE CONTACTO */
-@media (max-width: 850px) {
-    .contact-container {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .contact-form {
-        width: 100%;
-        padding: 30px 20px;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-/* Estilos extra para el calendario y selector */
-/* Contenedor de filas del formulario */
 .form-row {
     display: flex;
     gap: 20px;
     width: 100%;
-    margin-bottom: 25px; /* Espacio entre filas */
+    margin-bottom: 20px;
 }
 
 .form-row .form-group {
     flex: 1;
     display: flex;
-    flex-direction: column; /* Asegura que label esté arriba del input */
+    flex-direction: column;
 }
 
-/* Estilo premium para los labels */
 label {
     font-size: 11px;
     color: var(--neon);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
-    text-align: left;
 }
 
-/* Estilo para los selectores y fechas */
-input[type="text"],
-input[type="email"],
-input[type="date"],
-select, 
-textarea {
+input, select, textarea {
     width: 100%;
-    padding: 14px 18px; /* Un poco más de padding para que se vea moderno */
+    padding: 14px 18px;
     background: rgba(1, 13, 26, 0.9);
     border: 1px solid rgba(0, 217, 255, 0.2);
     border-radius: 10px;
@@ -543,15 +300,12 @@ textarea {
     font-family: 'Orbitron', sans-serif;
     font-size: 14px;
     outline: none;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: 0.3s ease;
 }
 
-/* Brillo al seleccionar */
 input:focus, select:focus, textarea:focus {
     border-color: var(--neon);
     box-shadow: 0 0 15px var(--glow);
-    background: rgba(1, 13, 26, 1);
 }
 
 select {
@@ -561,24 +315,50 @@ select {
     background-position: right 10px center;
 }
 
-/* Color neón al icono del calendario */
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1) sepia(100%) saturate(10000%) hue-rotate(170deg);
     cursor: pointer;
 }
 
-/* RESPONSIVE: En móviles se apilan */
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--neon);
+    color: #001018;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--glow);
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE GLOBAL
+   ========================================================================== */
+@media (max-width: 992px) {
+    .course-slide { 
+        flex-direction: column-reverse; 
+        padding: 40px 20px 80px; 
+        text-align: center;
+        gap: 30px;
+    }
+    .course-text, .course-image { width: 100%; }
+    .course-image img { height: 250px; }
+    
+    .arrow { top: auto; bottom: 15px; transform: none; }
+    .arrow.left { left: 30%; }
+    .arrow.right { right: 30%; }
+
+    .contact-container { flex-direction: column; text-align: center; }
+    .contact-form { width: 100%; }
+}
+
 @media (max-width: 600px) {
-    .form-row {
-        flex-direction: column; /* Se apilan en vertical */
-        gap: 20px;
-    }
-
-    .contact-form {
-        padding: 30px 20px;
-    }
-
-    .contact-info h2 {
-        font-size: 26px; /* Título más pequeño en móvil */
-    }
+    :root { --slide-width: 130px; }
+    .slide img { height: 50px; }
+    .form-row { flex-direction: column; gap: 20px; }
+    .about-media { width: 300px; height: 300px; }
 }
