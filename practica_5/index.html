@@ -136,7 +136,7 @@
             
             <div class="about-media">
                 <div class="blob"></div>
-                <img src="https://aleecruz.github.io/Gamma_Stream_V1.1/assets/Logo-BVySgBYU.png" alt="Aprendizaje online" class="about-img">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop" alt="Aprendizaje online" class="about-img">
 
 
 
@@ -184,6 +184,99 @@
                 <div class="slide"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"></div>
             </div>
         </div>
+
+
+
+
+        <!-----------------------------------
+        FORMULARIO DE CONTACTO
+        ------------------------------------>
+        <section class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <span class="subtitle">Contacto</span>
+                    <h2>¿Tienes dudas? <span>Escríbenos</span></h2>
+                    <p>Estamos aquí para ayudarte a impulsar tu carrera tech. Déjanos tu mensaje y te responderemos en menos de 24 horas.</p>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="Tu mensaje..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Enviar mensaje</button>
+                </form>
+            </div>
+        </section>
+
+        <!-----------------------------------
+        cALENDARIO
+        ------------------------------------>
+
+        <section class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <span class="subtitle">Agendar Cita</span>
+                    <h2>Reserva una <span>Asesoría</span></h2>
+                    <p>Selecciona el día y el rango horario que mejor te convenga.</p>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nombre completo" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Fecha</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="time-start">Desde</label>
+                            <select id="time-start" name="time_start" required onchange="updateEndTime()">
+                                <option value="" disabled selected>Hora inicio</option>
+                                <option value="07:00">07:00 AM</option>
+                                <option value="08:00">08:00 AM</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="time-end">Hasta</label>
+                            <select id="time-end" name="time_end" required>
+                                <option value="" disabled selected>Hora fin</option>
+                                <option value="08:00">08:00 AM</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea rows="3" placeholder="¿En qué curso estás interesado?"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Confirmar Reserva</button>
+                </form>
+            </div>
+        </section>
+
+
+
+
+
 
     </main>
 

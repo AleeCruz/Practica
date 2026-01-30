@@ -1,280 +1,165 @@
+/* ==========================================================================
+   1. VARIABLES Y CONFIGURACIÓN BASE
+   ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 :root {
     --blue-black: rgba(1, 13, 26, 0.9);
-    --azuldark: rgba(2, 22, 43, 0.4);
+    --azul-dark: #0a0f1c;
+    --azul-card: #0b1c2a;
     --neon: #00d9ff;
     --glow: rgba(0, 217, 255, 0.4);
     --light: #e6faff;
-
-    /* variables del slider */
+    --success: #2ecc71;
+    
+    /* Variables del slider infinito */
     --slide-width: 200px;
-    --slide-count: 12;   /* total de slides (incluidos los duplicados) */
-    --visible-shift: 6;  /* cantidad de slides reales */
+    --slide-count: 12;   
+    --visible-shift: 6;  
 }
 
-
-
-
-
-/* =========================
-   CARRUSEL INFINITO
-========================= */
-
-.slider {
-    width: 100%;
-    overflow: hidden;
-    padding: 60px 0;
-    background: rgba(1, 13, 26, 0.4);
-    position: relative;
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--azul-dark);
+    color: var(--light);
 }
 
-/* difuminado suave en los bordes */
-.slider::before,
-.slider::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 80px;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.slider::before {
-    left: 0;
-    background: linear-gradient(to right, #010d1a, transparent);
-}
-
-.slider::after {
-    right: 0;
-    background: linear-gradient(to left, #010d1a, transparent);
-}
-
-.slide-track {
-    display: flex;
-    width: calc(var(--slide-width) * var(--slide-count));
-    animation: scroll-infinito 25s linear infinite;
-}
-
-.slide {
-    width: var(--slide-width);
-    flex: 0 0 var(--slide-width); /* evita que se achique */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.slide img {
-    height: 80px;
-    width: auto;
-    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
-    transition: transform 0.35s ease, filter 0.35s ease;
-}
-
-/* hover del logo */
-.slide img:hover {
-    transform: scale(1.15) rotate(3deg);
-    filter: drop-shadow(0 0 20px var(--neon));
-}
-
-/* animación infinita */
-@keyframes scroll-infinito {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(calc(-1 * var(--slide-width) * var(--visible-shift)));
-    }
-}
-
-/* pausa al pasar el mouse */
-.slider:hover .slide-track {
-    animation-play-state: paused;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-/* tablets */
-@media (max-width: 900px) {
-    :root {
-        --slide-width: 160px;
-    }
-
-    .slide img {
-        height: 65px;
-    }
-}
-
-/* móviles */
-@media (max-width: 600px) {
-    :root {
-        --slide-width: 130px;
-    }
-
-    .slider {
-        padding: 40px 0;
-    }
-
-    .slide img {
-        height: 50px;
-    }
-
-    .slide-track {
-        animation-duration: 18s; /* un poco más rápido en pantallas chicas */
-    }
-}
-
-
-
-/* =========================
-   Carrusel con flechas
-========================= */
+/* ==========================================================================
+   2. CARRUSEL DE CURSOS (PRINCIPAL)
+   ========================================================================== */
 .course-carousel {
     position: relative;
-    width: 100%;
-    max-width: 1100px;
+    width: 95%;
+    max-width: 1200px;
     margin: 40px auto;
-    overflow: hidden; /* Esto corta lo que sobra */
-    background: #0b1c2a;
-    border-radius: 16px;
+    overflow: hidden;
+    background: var(--azul-card);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    /* Quitamos el height fijo para que respire en móvil */
+    min-height: 450px; 
 }
-/* contenedor horizontal de los slides */
+
 .carousel-track {
     display: flex;
-    /* Eliminamos el width: 100% que tenías antes */
-    width: 100%; 
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* cada slide ocupa exactamente el ancho del carrusel */
 .course-slide {
-    /* ESTO ES LO MÁS IMPORTANTE: */
-    flex: 0 0 100%; /* No se encoge, no crece, siempre ocupa el 100% */
+    flex: 0 0 100%;
     width: 100%;
-    
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 30px;
-    padding: 40px;
-    box-sizing: border-box; /* Para que el padding no rompa el tamaño */
+    justify-content: space-between;
+    padding: 60px 80px; /* Espacio generoso */
+    box-sizing: border-box;
 }
-
-/* texto */
+/* Contenido de Texto */
 .course-text {
     max-width: 50%;
-    color: #e6faff;
 }
 
 .course-text .tag {
-    background: #2ecc71;
+    background: var(--success);
     color: #000;
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 8px;
     font-size: 12px;
     font-weight: bold;
+    display: inline-block;
+}
+
+/* Texto legible */
+.course-text {
+    width: 50%;
+    text-align: left;
 }
 
 .course-text h2 {
-    margin: 15px 0 10px;
-    font-size: 28px;
-    color: #00d9ff;
+    font-size: 32px;
+    color: var(--neon);
+    margin: 15px 0;
 }
 
 .course-text .date {
     opacity: 0.7;
+    font-size: 0.9em;
     margin-bottom: 10px;
 }
 
-.course-text .more {
-    color: #00d9ff;
-    text-decoration: none;
+.course-text p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 25px;
 }
 
-/* imagen */
+.course-text .more {
+    color: var(--neon);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.course-text .more:hover {
+    border-bottom: 1px solid var(--neon);
+}
+
+/* Contenido de Imagen */
 .course-image {
     width: 45%;
     display: flex;
     justify-content: center;
 }
 
+
 .course-image img {
     width: 100%;
-    max-width: 420px;
-    height: auto;
-    border-radius: 12px;
+    max-width: 450px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
 }
 
-/* botones flecha */
+/* Botones de Navegación */
 .arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 217, 255, 0.15);
     border: none;
-    color: #00d9ff;
+    color: var(--neon);
     font-size: 30px;
     padding: 10px 14px;
     cursor: pointer;
     border-radius: 50%;
     z-index: 10;
+    transition: 0.3s;
 }
 
-.arrow.left {
-    left: 10px;
-}
+.arrow:hover { background: rgba(0, 217, 255, 0.35); }
+.arrow.left { left: 20px; }
+.arrow.right { right: 20px; }
 
-.arrow.right {
-    right: 10px;
-}
-
-.arrow:hover {
-    background: rgba(0, 217, 255, 0.35);
-}
-@media (max-width: 768px) {
-    .course-slide {
-        flex-direction: column-reverse; /* Imagen arriba, texto abajo */
-        text-align: center;
-        padding: 60px 20px; /* Más espacio para las flechas */
-    }
-
-    .course-text, .course-image {
-        max-width: 100%;
-        width: 100%;
-    }
-}
-
-
-
-
-
-
-/* ===============================
-    ESTILOS DE SECTION IMAGE
-   =============================== */
-
+/* ==========================================================================
+   3. SECCIÓN "SOBRE GAMMA" (ABOUT)
+   ========================================================================== */
 .about-gamma {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 60px;
     padding: 80px 10%;
-    background: #0a0f1c;
-    color: #e6faff;
     flex-wrap: wrap;
 }
 
-/* contenedor de imagen */
 .about-media {
     position: relative;
-    width: 420px;
-    height: 420px;
+    width: 400px;
+    height: 400px;
 }
 
-/* imagen principal */
 .about-img {
     width: 100%;
     height: 100%;
@@ -284,70 +169,416 @@
     z-index: 2;
 }
 
-/* forma de fondo tipo blob neon */
 .blob {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #6a00ff, #00d9ff);
+    background: linear-gradient(135deg, #6a00ff, var(--neon));
     border-radius: 60% 40% 55% 45% / 45% 60% 40% 55%;
-    transform: scale(1.15);
+    transform: scale(1.1);
     z-index: 1;
     filter: blur(2px);
 }
 
-/* texto */
 .about-text {
     max-width: 500px;
 }
 
 .subtitle {
-    color: #00d9ff;
+    color: var(--neon);
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    display: block;
 }
 
 .about-text h2 {
     font-size: 40px;
-    margin: 10px 0 20px;
+    margin: 10px 0;
 }
 
-.about-text h2 span {
-    color: #00d9ff;
-}
+.about-text h2 span { color: var(--neon); }
 
-.about-text p {
-    line-height: 1.6;
-    opacity: .9;
-}
-
-/* botón */
 .btn-more {
     display: inline-block;
-    margin-top: 20px;
-    padding: 12px 24px;
-    background: #00d9ff;
+    margin-top: 25px;
+    padding: 14px 28px;
+    background: var(--neon);
     color: #001018;
     font-weight: bold;
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: 0 0 15px rgba(0,217,255,0.6);
-    transition: .2s;
+    box-shadow: 0 0 15px var(--glow);
+    transition: 0.3s;
 }
 
 .btn-more:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 25px rgba(0,217,255,1);
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px var(--neon);
 }
 
-/* responsive */
-@media (max-width: 768px) {
-    .about-gamma {
-        flex-direction: column;
+/* ==========================================================================
+   4. SLIDER INFINITO (LOGOS TECNOLOGÍAS)
+   ========================================================================== */
+.slider {
+    width: 100%;
+    overflow: hidden;
+    padding: 60px 0;
+    background: rgba(1, 13, 26, 0.4);
+    position: relative;
+}
+
+.slider::before, .slider::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.slider::before { left: 0; background: linear-gradient(to right, var(--azul-dark), transparent); }
+.slider::after { right: 0; background: linear-gradient(to left, var(--azul-dark), transparent); }
+
+.slide-track {
+    display: flex;
+    width: calc(var(--slide-width) * var(--slide-count));
+    animation: scroll-infinito 25s linear infinite;
+}
+
+.slide {
+    width: var(--slide-width);
+    flex: 0 0 var(--slide-width);
+    display: flex;
+    justify-content: center;
+}
+
+.slide img {
+    height: 70px;
+    filter: drop-shadow(0 0 5px var(--glow));
+    transition: 0.3s;
+}
+
+.slide img:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 15px var(--neon));
+}
+
+@keyframes scroll-infinito {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-1 * var(--slide-width) * var(--visible-shift))); }
+}
+
+.slider:hover .slide-track { animation-play-state: paused; }
+
+/* ==========================================================================
+   5. RESPONSIVE DESIGN (MÓVIL Y TABLET)
+   ========================================================================== */
+@media (max-width: 992px) {
+    /* Carrusel de Cursos */
+    .course-carousel { height: auto; min-height: 550px; }
+    .course-slide { 
+        flex-direction: column-reverse; 
+        padding: 40px 20px; 
+        justify-content: center; 
+        text-align: center;
+        gap: 30px;
+    }
+    .course-text, .course-image { max-width: 100%; width: 100%; }
+    .course-text h2 { font-size: 28px; }
+    .course-image img { height: 250px; max-width: 100%; }
+    
+    .arrow { top: auto; bottom: 15px; transform: none; }
+    .arrow.left { left: 30%; }
+    .arrow.right { right: 30%; }
+
+    /* Sección About */
+    .about-gamma { text-align: center; }
+    .about-media { width: 300px; height: 300px; }
+}
+
+@media (max-width: 600px) {
+    :root { --slide-width: 130px; }
+    .slide img { height: 50px; }
+}
+
+/* ==========================================================================
+   CARRUSEL DE CURSOS (RE-ESTRUCTURADO)
+   ========================================================================== */
+.course-carousel {
+    position: relative;
+    width: 95%;
+    max-width: 1200px;
+    margin: 40px auto;
+    overflow: hidden;
+    background: var(--azul-card);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    /* Quitamos el height fijo para que respire en móvil */
+    min-height: 450px; 
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.course-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 80px; /* Espacio generoso */
+    box-sizing: border-box;
+}
+
+/* Imagen adaptable */
+.course-image {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.course-image img {
+    width: 100%;
+    max-width: 450px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Texto legible */
+.course-text {
+    width: 50%;
+    text-align: left;
+}
+
+.course-text h2 {
+    font-size: 32px;
+    color: var(--neon);
+    margin: 15px 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE (¡Aquí es donde se arregla lo feo!)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .course-slide {
+        flex-direction: column-reverse; /* Imagen arriba, texto abajo */
+        padding: 40px 20px 80px 20px; /* Más padding abajo para las flechas */
         text-align: center;
     }
 
-    .about-media {
-        width: 300px;
-        height: 300px;
+    .course-text, .course-image {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .course-text h2 {
+        font-size: 24px;
+    }
+
+    .course-image img {
+        height: 200px; /* Imagen más pequeña en móvil */
+        margin-bottom: 20px;
+    }
+
+    /* Arreglamos las flechas en móvil para que no tapen el texto */
+    .arrow {
+        top: auto;
+        bottom: 15px; /* Las bajamos al final del card */
+        transform: none;
+    }
+
+    .arrow.left {
+        left: 30%; /* Centradas un poco más */
+    }
+
+    .arrow.right {
+        right: 30%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   6. FORMULARIO DE CONTACTO
+   ========================================================================== */
+.contact-section {
+    padding: 80px 10%;
+    background: var(--azul-dark);
+}
+
+.contact-container {
+    display: flex;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-form {
+    flex: 1;
+    background: var(--azul-card);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    border: 1px solid rgba(0, 217, 255, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(1, 13, 26, 0.8);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 8px;
+    color: var(--light);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: var(--neon);
+    box-shadow: 0 0 10px var(--glow);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--neon);
+    color: #001018;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--glow);
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px var(--neon);
+}
+
+/* RESPONSIVE CONTACTO */
+@media (max-width: 850px) {
+    .contact-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .contact-form {
+        width: 100%;
+        padding: 30px 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* Estilos extra para el calendario y selector */
+/* Contenedor de filas del formulario */
+.form-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 25px; /* Espacio entre filas */
+}
+
+.form-row .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Asegura que label esté arriba del input */
+}
+
+/* Estilo premium para los labels */
+label {
+    font-size: 11px;
+    color: var(--neon);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Estilo para los selectores y fechas */
+input[type="text"],
+input[type="email"],
+input[type="date"],
+select, 
+textarea {
+    width: 100%;
+    padding: 14px 18px; /* Un poco más de padding para que se vea moderno */
+    background: rgba(1, 13, 26, 0.9);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 10px;
+    color: var(--light);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* Brillo al seleccionar */
+input:focus, select:focus, textarea:focus {
+    border-color: var(--neon);
+    box-shadow: 0 0 15px var(--glow);
+    background: rgba(1, 13, 26, 1);
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300d9ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+/* Color neón al icono del calendario */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) sepia(100%) saturate(10000%) hue-rotate(170deg);
+    cursor: pointer;
+}
+
+/* RESPONSIVE: En móviles se apilan */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column; /* Se apilan en vertical */
+        gap: 20px;
+    }
+
+    .contact-form {
+        padding: 30px 20px;
+    }
+
+    .contact-info h2 {
+        font-size: 26px; /* Título más pequeño en móvil */
     }
 }
