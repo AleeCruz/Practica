@@ -18,8 +18,10 @@
     --visible-shift: 6;  
 }
 
-* {
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* evita desbordes en móviles */
 }
 
 body {
@@ -37,6 +39,25 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 3px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ==========================================================================
    2. CARRUSEL DE CURSOS (PRINCIPAL)
@@ -143,6 +164,30 @@ h1 {
 .arrow.left { left: 20px; }
 .arrow.right { right: 20px; }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ==========================================================================
    3. SECCIÓN SOBRE GAMMA (ABOUT)
    ========================================================================== */
@@ -186,6 +231,7 @@ h1 {
     letter-spacing: 2px;
     display: block;
     margin-bottom: 10px;
+    font-size: 30px;
 }
 
 .about-text { max-width: 500px; }
@@ -204,6 +250,21 @@ h1 {
     box-shadow: 0 0 15px var(--glow);
     transition: 0.3s;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ==========================================================================
    4. SLIDER INFINITO
@@ -239,6 +300,20 @@ h1 {
     from { transform: translateX(0); }
     to { transform: translateX(calc(-1 * var(--slide-width) * var(--visible-shift))); }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ==========================================================================
    5. FORMULARIOS (CONTACTO Y CALENDARIO)
@@ -335,6 +410,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-transform: uppercase;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ==========================================================================
    6. RESPONSIVE GLOBAL
    ========================================================================== */
@@ -355,6 +446,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .contact-container { flex-direction: column; text-align: center; }
     .contact-form { width: 100%; }
 }
+
+
 
 @media (max-width: 600px) {
     :root { --slide-width: 130px; }
