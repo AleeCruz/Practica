@@ -1,0 +1,21 @@
+# --- Dependencias de la subcarpeta React ---
+# Esto ignora específicamente los módulos pesados de tu proyecto de React
+aprendiendo_react/node_modules/
+aprendiendo_react/.pnp
+aprendiendo_react/.pnp.js
+
+# --- Testing ---
+aprendiendo_react/coverage/
+
+# --- Producción ---
+aprendiendo_react/build/
+
+# --- Otros archivos (estos se ignoran en cualquier carpeta) ---
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
