@@ -148,9 +148,91 @@ console.log("\n\n---------VEremos el mismo comportaminetos con una ARROW FUNCTIO
 
 
 
- //Podemos hacer un comentario solo de una sola linea de la siguiente manera
-
+ //Podemos hacer una arrow function de una sola linea
 console.log("\n\n----Vamos a usar un for each pero en esta ocasion con una sola linea--------")
 pedidos.forEach((el_pos,pos)=>console.log(`pos:${pos}: ${el_pos}`))
+
+
+
+
+
+//veremos otra caracteristica que hacen las arrow functions lo veremos con los 
+//Siguientes ejemplos 
+
+//Las arrow functions tienen la capacidad de capturar el contexto en el cual se encuentre 
+
+//Veamos un ejemplo de la creacion de un objeto llamado perro con
+//La palabras reservada this
+
+//Creacion de una funcion
+function Perro (){
+    console.log(this)
+}
+
+//Llamada ahacia una funcion
+
+Perro()
+
+
+//QUe esta sucediiendo ???
+//Lo cierto es que nosotros estamos haciendo referencia con la palabra this al objeto o 
+//Al contexto con el cual estuvimos trabajando
+//En este caso this esta dentro del contexto ventana o DOM
+
+
+
+//Ahora veamos una caracteristica importante de las arrow function y de la palabra reservada this
+
+//En este ejemplo nosotros percibimos que el la palabra reservdad this 
+/**
+ * Solo se hace referencia hacia el objeto con el cual estamos trabajando
+ */
+
+console.log("\n\n---------Resultado de usar un objeto->metodo sin arrow function->this")
+const perro ={
+    nombre: "Kuko",
+    edad:12,
+    ladrar: function (){
+        console.log("Guau!! Guau!! Guau!!")
+        console.log(this)
+    }
+}
+
+perro.ladrar()
+
+
+
+//Surge una pregunta importante ¿Qué pasa cuando uso una arrow functions
+
+
+
+console.log("\n\n-------Resultado de usar un Objeto->metodo y Arrow functions->this\n\n")
+
+const persona ={
+    nombre: "Jorge",
+    edad:43,
+    atacar:()=>{
+        console.log("Vamos a atacar!!!")
+        console.log(this)
+    }
+}
+
+
+//QUe sucedera??? averiguemoslo!!
+
+
+persona.atacar();
+
+
+
+
+//En resumen que es lo que hacen las arrow functions??
+
+/**Las arrow function tienen la capacidad de capturar el objeto del contexto en el cual
+ * se encuentran haci que lo mejor es prestar atencion a no usar arrow function en los objetos
+ */
+
+
+
 
 
