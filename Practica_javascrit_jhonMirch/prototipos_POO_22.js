@@ -121,3 +121,8 @@ console.log("\n\n------Vamos a ver las nuevas instancias con metodos agregados -
 console.log(bugBunny)
 console.log(mickey)
 
+
+
+
+
+
