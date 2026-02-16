@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Privado</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script>
+        // --- PROTECCIÓN DE ACCESO ---
+        const PASSWORD_SECRETA = "alexander"; // <--- CAMBIA ESTO
+        const acceso = prompt("🔐 Ingresa la clave de administrador:");
+        
+        if (acceso !== PASSWORD_SECRETA) {
+            alert("Acceso denegado. Redirigiendo a la tienda...");
+            window.location.href = "index.html";
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; padding: 20px; }
+        .admin-container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; text-align: center; }
+        
+        /* Formulario */
+        .form-group { margin-bottom: 15px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        
+        /* Drop Zone */
+        .drop-zone {
+            width: 100%; height: 150px; border: 2px dashed #1a73e8; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            position: relative; background: #f8fbff; overflow: hidden; margin-top: 10px;
+        }
+        .drop-zone__input { display: none; }
+        .file-preview { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; display: none; }
+        
+        button#btnPublicar {
+            width: 100%; padding: 15px; background: #1a73e8; color: white; border: none;
+            border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px;
+        }
+        button#btnPublicar:disabled { background: #ccc; }
+
+        /* Lista de Gestión */
+        #gestionLista { margin-top: 40px; display: grid; gap: 15px; }
+        .item-gestion {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px; border: 1px solid #eee; border-radius: 10px; background: #fafafa;
+        }
+        .item-gestion img { width: 50px; height: 50px; border-radius: 5px; object-fit: cover; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <h1>🛠️ Panel de Control</h1>
+        <p style="text-align: center;"><a href="index.html">⬅️ Volver a la Tienda Pública</a></p>
+        <hr>
+
+        <form id="productForm">
+            <div class="form-group">
+                <input type="text" id="nombre" placeholder="Nombre del Producto" required>
+            </div>
+            <div class="form-group">
+                <textarea id="descripcion" placeholder="Descripción" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="number" id="precio" placeholder="Precio" step="0.01" required>
+            </div>
+
+            <label for="foto" class="drop-zone" id="dropZone">
+                <span id="promptText">📷 Haz clic para subir imagen</span>
+                <input type="file" id="foto" accept="image/*" class="drop-zone__input">
+                <div id="filePreview" class="file-preview"></div>
+            </label>
+
+            <button type="submit" id="btnPublicar">Publicar Producto</button>
+        </form>
+
+        <div id="gestionLista">
+            <h3>Gestión de Stock</h3>
+            </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCfiFNastJGZzhzD4rceW6wN3_E8fxUPpg",
+            authDomain: "e-commerce-1db3e.firebaseapp.com",
+            projectId: "e-commerce-1db3e",
+            storageBucket: "e-commerce-1db3e.firebasestorage.app",
+            messagingSenderId: "426044030207",
+            appId: "1:426044030207:web:0108542305a98b12cd60ca"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const CLOUD_NAME = "da5bwh0fx";
+        const UPLOAD_PRESET = "e-commerce";
+
+        const productForm = document.getElementById('productForm');
+        const fotoInput = document.getElementById('foto');
+        const filePreview = document.getElementById('filePreview');
+        const promptText = document.getElementById('promptText');
+        const btnPublicar = document.getElementById('btnPublicar');
+        const gestionLista = document.getElementById('gestionLista');
+
+        // Vista previa
+        fotoInput.onchange = () => {
+            const file = fotoInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    filePreview.style.backgroundImage = `url(${e.target.result})`;
+                    filePreview.style.display = 'block';
+                    promptText.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Publicar
+        productForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const file = fotoInput.files[0];
+            if(!file) return alert("Sube una foto");
+
+            btnPublicar.disabled = true;
+            btnPublicar.innerText = "Subiendo...";
+
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', UPLOAD_PRESET);
+
+                const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
+                const data = await res.json();
+
+                await addDoc(collection(db, "productos"), {
+                    nombre: document.getElementById('nombre').value,
+                    descripcion: document.getElementById('descripcion').value,
+                    precio: document.getElementById('precio').value,
+                    imagen: data.secure_url,
+                    fecha: serverTimestamp()
+                });
+
+                productForm.reset();
+                filePreview.style.display = 'none';
+                promptText.style.display = 'block';
+                cargarGestion();
+                alert("¡Producto en línea!");
+            } catch (err) { alert("Error al subir"); }
+            btnPublicar.disabled = false;
+            btnPublicar.innerText = "Publicar Producto";
+        };
+
+        // Lista para borrar
+        async function cargarGestion() {
+            const snap = await getDocs(collection(db, "productos"));
+            gestionLista.innerHTML = "<h3>Gestión de Stock</h3>";
+            snap.forEach(documento => {
+                const p = documento.data();
+                const div = document.createElement('div');
+                div.className = 'item-gestion';
+                div.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="${p.imagen}">
+                        <span>${p.nombre}</span>
+                    </div>
+                    <button style="color:red; cursor:pointer; background:none; border:none;" onclick="eliminarProd('${documento.id}')">❌ Borrar</button>
+                `;
+                gestionLista.appendChild(div);
+            });
+        }
+
+        window.eliminarProd = async (id) => {
+            if(confirm("¿Borrar producto?")) {
+                await deleteDoc(doc(db, "productos", id));
+                cargarGestion();
+            }
+        };
+
+        cargarGestion();
+    </script>
+</body>
+</html>
