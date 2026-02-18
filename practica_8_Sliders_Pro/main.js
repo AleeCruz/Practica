@@ -1,3 +1,7 @@
+
+//Logica del carrouesel 
+
+
 const track = document.getElementById('track');
 const slides = Array.from(track.children);
 const nextBtn = document.getElementById('nextBtn');
@@ -45,7 +49,7 @@ prevBtn.addEventListener('click', () => {
 // Extra: Auto-play cada 5 segundos
 setInterval(() => {
     nextBtn.click();
-}, 5000);
+}, 7000);
 
 
 
