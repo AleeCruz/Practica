@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root{ --primary:#2563eb; --gray:#64748b; }
+        body{ font-family:'Plus Jakarta Sans',sans-serif; margin:0; background:#f8fafc; padding:40px 20px; }
+        .nav-back { display:inline-block; margin-bottom:20px; color:var(--primary); text-decoration:none; font-weight:600; }
+        .container{ max-width:1100px; margin:auto; display:grid; grid-template-columns:1fr 1fr; gap:50px; background:white; padding:30px; border-radius:30px; box-shadow:0 10px 30px rgba(0,0,0,0.05); }
+        .gallery{display:flex;flex-direction:column;gap:15px;}
+        .main-image{ width:100%; height:450px; border-radius:20px; overflow:hidden; border:1px solid #eee; }
+        .main-image img{ width:100%; height:100%; object-fit:cover; }
+        .thumbnails{display:flex;gap:10px;flex-wrap:wrap;}
+        .thumbnails img{ width:70px;height:70px;border-radius:10px; object-fit:cover;cursor:pointer; border:2px solid transparent; }
+        .thumbnails img.active{ border-color:var(--primary); }
+        .info h1{font-size:2.2rem; margin:0 0 10px 0; color:#0f172a;}
+        .category-badge { background:#eff6ff; color:var(--primary); padding:5px 12px; border-radius:8px; font-size:0.8rem; font-weight:600; display:inline-block; margin-bottom:15px; text-transform:uppercase; }
+        .price{ font-size:2.5rem; font-weight:800; color:var(--primary); margin-bottom:20px; }
+        .desc{ color:var(--gray); line-height:1.7; margin-bottom:30px; font-size:1.1rem; }
+        .buy-btn{ width:100%; padding:18px; background:#25d366; color:white; border:none; border-radius:15px; cursor:pointer; font-size:1.1rem; font-weight:700; transition:0.3s; }
+        .buy-btn:hover { background:#128c7e; transform:scale(1.02); }
+        @media(max-width:850px){ .container{grid-template-columns:1fr;} }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Esta es la seccion del header para el navbar</h1>
+</header>
+
+
+
+
+<div style="max-width:1100px; margin:auto;">
+    <a href="index.html" class="nav-back">← Volver al catálogo</a>
+    <div class="container">
+        <div class="gallery">
+            <div class="main-image"><img id="mainImg" src=""></div>
+            <div class="thumbnails" id="thumbs"></div>
+        </div>
+        <div class="info">
+            <span id="catBadge" class="category-badge">Categoría</span>
+            <h1 id="nombre">Cargando...</h1>
+            <div class="price" id="precio">$0.00</div>
+            <div class="desc" id="descripcion">Cargando descripción del producto...</div>
+            <button class="buy-btn" id="comprar">Pedir por WhatsApp</button>
+        </div>
+    </div>
+</div>
+
+
+
+<footer>
+    <h2>Esta es la seccion para el footer</h2>
+</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCfiFNastJGZzhzD4rceW6wN3_E8fxUFpg",
+    authDomain: "e-commerce-1db3e.firebaseapp.com",
+    projectId: "e-commerce-1db3e",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+async function cargarProducto(){
+    if(!id) return;
+    const docSnap = await getDoc(doc(db,"productos",id));
+    if(!docSnap.exists()) return;
+
+    const p = docSnap.data();
+    document.getElementById("nombre").innerText = p.nombre;
+    document.getElementById("precio").innerText = "$" + p.precio;
+    document.getElementById("descripcion").innerText = p.descripcion;
+    document.getElementById("catBadge").innerText = p.categoria || "General";
+
+    const imagenes = p.imagenes || [];
+    const mainImg = document.getElementById("mainImg");
+    const thumbs = document.getElementById("thumbs");
+
+    mainImg.src = imagenes[0] || 'https://via.placeholder.com/500';
+
+    imagenes.forEach((url,index)=>{
+        const img = document.createElement("img");
+        img.src = url;
+        if(index===0) img.classList.add("active");
+        img.onclick = ()=>{
+            mainImg.src = url;
+            document.querySelectorAll(".thumbnails img").forEach(i=>i.classList.remove("active"));
+            img.classList.add("active");
+        };
+        thumbs.appendChild(img);
+    });
+
+    document.getElementById("comprar").onclick = ()=>{
+        const num = "5491100000000"; // CAMBIA ESTO POR TU NÚMERO
+        const msg = encodeURIComponent(`Hola! Me interesa comprar: ${p.nombre} ($${p.precio})`);
+        window.location.href = `https://wa.me/${num}?text=${msg}`;
+    };
+}
+cargarProducto();
+</script>
+</body>
+</html>

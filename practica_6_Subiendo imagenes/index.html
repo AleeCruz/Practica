@@ -3,176 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda/Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Mi Tienda Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2563eb;
-            --dark: #0f172a;
-            --glass: rgba(255, 255, 255, 0.8);
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            margin: 0;
-            padding: 40px 20px;
-            color: var(--dark);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #1e40af, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle { color: #64748b; font-size: 1.1rem; }
-
-        #catalog {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Tarjeta Estilo Glassmorphism */
-        .card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 24px;
-            padding: 20px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-        }
-
-        .card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            background: white;
-        }
-
-        .image-container {
-            width: 100%;
-            height: 250px;
-            border-radius: 18px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .card:hover img { transform: scale(1.1); }
-
-        .price-tag {
-            background: var(--dark);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        h3 { margin: 10px 0 5px 0; font-size: 1.4rem; font-weight: 700; }
+        :root { --primary: #2563eb; --dark: #0f172a; --glass: rgba(255,255,255,0.8); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg,#f8fafc,#e2e8f0); margin:0; padding:40px 20px; color:var(--dark); min-height:100vh; }
+        header { text-align:center; margin-bottom:40px; }
+        h1 { font-size:3rem; font-weight:800; background: linear-gradient(to right,#1e40af,#3b82f6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px;}
         
-        .desc { color: #475569; font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; }
-
-        .buy-button {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
+        /* Estilos Filtros */
+        .filter-container { display:flex; justify-content:center; gap:10px; margin-bottom:40px; flex-wrap:wrap; }
+        .filter-btn {
+            padding:10px 20px; border-radius:50px; border:none; background: white;
+            cursor:pointer; font-weight:600; transition:0.3s; color: var(--dark);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
+        .filter-btn.active { background: var(--primary); color:white; }
 
-        /* Animaciones */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsivo */
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            #catalog { grid-template-columns: 1fr; }
-        }
+        #catalog { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:30px; max-width:1200px; margin:0 auto; }
+        .card { background:var(--glass); backdrop-filter:blur(10px); border-radius:24px; padding:20px; transition:.3s; cursor:pointer; border:1px solid rgba(255,255,255,0.3); }
+        .card:hover { transform:translateY(-8px); background:white; box-shadow:0 20px 40px rgba(0,0,0,0.1); }
+        .image-container { width:100%; height:250px; overflow:hidden; border-radius:18px; margin-bottom:15px; }
+        .card img { width:100%; height:100%; object-fit:cover; }
+        .price-tag { background:var(--dark); color:white; padding:6px 14px; border-radius:50px; font-weight:600; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Todos los productos</h1>
-        <p class="subtitle">Descubrí productos seleccionados para vos</p>
-    </header>
+<header>
+    <h1>Nuestra Tienda</h1>
+    <p style="color:#64748b">Filtrar por categoría:</p>
+</header>
 
-    <div id="catalog">
-        </div>
+<div class="filter-container">
+    <button class="filter-btn active" data-cat="todas">Todas</button>
+    <button class="filter-btn" data-cat="electronica">Electrónica</button>
+    <button class="filter-btn" data-cat="ropa">Ropa</button>
+    <button class="filter-btn" data-cat="hogar">Hogar</button>
+</div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+<div id="catalog"></div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCfiFNastJGZzhzD4rceW6wN3_E8fxUPpg",
-            authDomain: "e-commerce-1db3e.firebaseapp.com",
-            projectId: "e-commerce-1db3e",
-            storageBucket: "e-commerce-1db3e.firebasestorage.app",
-            messagingSenderId: "426044030207",
-            appId: "1:426044030207:web:0108542305a98b12cd60ca"
-        };
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getFirestore, collection, getDocs, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const catalog = document.getElementById('catalog');
+const firebaseConfig = {
+    apiKey: "AIzaSyCfiFNastJGZzhzD4rceW6wN3_E8fxUFpg",
+    authDomain: "e-commerce-1db3e.firebaseapp.com",
+    projectId: "e-commerce-1db3e",
+};
 
-        async function cargarProductos() {
-            // Ordenamos por fecha para que lo nuevo aparezca primero
-            const q = query(collection(db, "productos"), orderBy("fecha", "desc"));
-            const querySnapshot = await getDocs(q);
-            
-            catalog.innerHTML = "";
-            querySnapshot.forEach((doc) => {
-                const p = doc.data();
-                catalog.innerHTML += `
-                    <div class="card">
-                        <div class="image-container">
-                            <img src="${p.imagen}" alt="${p.nombre}">
-                        </div>
-                        <h3>${p.nombre}</h3>
-                        <p class="desc">${p.descripcion}</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span class="price-tag">$${p.precio}</span>
-                            <button class="buy-button" onclick="window.location.href='https://wa.me/TUNUMERO'">Comprar</button>
-                        </div>
-                    </div>
-                `;
-            });
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const catalog = document.getElementById("catalog");
+
+async function cargarProductos(categoriaFiltro = "todas") {
+    catalog.innerHTML = "<p style='text-align:center; grid-column:1/-1;'>Cargando productos...</p>";
+    
+    let q;
+    if (categoriaFiltro === "todas") {
+        q = query(collection(db, "productos"), orderBy("fecha", "desc"));
+    } else {
+        // RECUERDA: Esto requiere un Índice Compuesto en Firebase (categoria ASC, fecha DESC)
+        q = query(collection(db, "productos"), where("categoria", "==", categoriaFiltro), orderBy("fecha", "desc"));
+    }
+
+    try {
+        const snap = await getDocs(q);
+        catalog.innerHTML = "";
+        
+        if(snap.empty) {
+            catalog.innerHTML = "<p style='text-align:center; grid-column:1/-1;'>No hay productos en esta categoría.</p>";
+            return;
         }
-        cargarProductos();
-    </script>
+
+        snap.forEach(docu => {
+            const p = docu.data();
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                <div class="image-container">
+                    <img src="${p.imagenes?.[0] || 'https://via.placeholder.com/300'}" alt="${p.nombre}">
+                </div>
+                <h3 style="margin:10px 0">${p.nombre}</h3>
+                <p style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">${p.descripcion?.substring(0,60)}...</p>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span class="price-tag">$${p.precio}</span>
+                    <span style="color:var(--primary);font-weight:600;">Ver más →</span>
+                </div>
+            `;
+            card.onclick = () => window.location.href = `producto.html?id=${docu.id}`;
+            catalog.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error:", error);
+        catalog.innerHTML = "<p>Error al cargar. ¿Creaste el índice en Firebase?</p>";
+    }
+}
+
+// Eventos de botones de filtro
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.onclick = (e) => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        cargarProductos(e.target.dataset.cat);
+    };
+});
+
+cargarProductos();
+</script>
 </body>
 </html>
